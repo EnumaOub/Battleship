@@ -22,6 +22,9 @@ describe("Ship init [0, 5] [3, 5]", () => {
     test('Check ship sunk param init', () => {
         expect(testShip.sunk).toBe(false);
     });
+    test('Check ship position param init', () => {
+        expect(testShip.position).toBe("HORIZONTAL");
+    });
 
 });
 
@@ -38,6 +41,9 @@ describe("Ship init [4, 5] [4, 7]", () => {
     });
     test('Check ship sunk param init', () => {
         expect(testShip.sunk).toBe(false);
+    });
+    test('Check ship position param init', () => {
+        expect(testShip.position).toBe("VERTICAL");
     });
 
 });
@@ -81,17 +87,29 @@ describe("Ship full hits", () => {
 //Gameboard
 
 describe("Gameboard init", () => {
-    const coordInit = [0, 5];
-    const coordFin = [3, 5];
-    const testBoard = new main.Gameboard(coordInit, coordFin);
+    const setCoord = [
+        [[0, 5], [3, 5]],
+        [[2, 2], [2, 0]],
+        [[4, 1], [4, 5]]
+    ]
+    const testBoard = new main.Gameboard(setCoord);
 
-    test('Check Gameboard ship length param', () => {
-        expect(testBoard.ship.length).toBe(4);
+    test('Check Gameboard number of ships', () => {
+        expect(testBoard.shipAlive).toBe(3);
     });
-    test('Check Gameboard ship hit param init', () => {
-        expect(testBoard.ship.hitNb).toBe(0);
+    test('Check Gameboard number of attack ', () => {
+        expect(testBoard.attackNb).toBe(0);
     });
-    test('Check Gameboard ship sunk param init', () => {
-        expect(testBoard.ship.sunk).toBe(false);
+    test('Check Gameboard number of missed attack', () => {
+        expect(testBoard.attackMissed).toBe(0);
+    });
+    test('Check Gameboard first ship hit param init', () => {
+        expect(testBoard.shipArr[0].hitNb).toBe(0);
+    });
+    test('Check Gameboard second ship sunk param init', () => {
+        expect(testBoard.shipArr[1].sunk).toBe(false);
+    });
+    test('Check ship position param init', () => {
+        expect(testBoard.shipArr[1].position).toBe("VERTICAL");
     });
 });
