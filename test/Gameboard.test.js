@@ -8,7 +8,8 @@ describe("Gameboard init", () => {
         [[2, 2], [2, 0]],
         [[4, 1], [4, 5]]
     ]
-    const testBoard = new Gameboard(setCoord);
+    const testBoard = new Gameboard(8, 6);
+    setCoord.forEach((coord) => testBoard.addShip(coord[0], coord[1]));
 
     test('Check Gameboard number of ships', () => {
         expect(testBoard.shipAlive).toBe(3);
@@ -38,7 +39,8 @@ describe("Gameboard attack miss", () => {
     ]
     const attackCoord = [0, 0];
 
-    const testBoard = new Gameboard(setCoord);
+    const testBoard = new Gameboard(8, 6);
+    setCoord.forEach((coord) => testBoard.addShip(coord[0], coord[1]));
     const attackRes = testBoard.receiveAttack(attackCoord);
     
     test('Check Gameboard attack miss', () => {
@@ -69,7 +71,8 @@ describe("Gameboard attack touch Horizontal", () => {
     ]
     const attackCoord = [0, 5];
 
-    const testBoard = new Gameboard(setCoord);
+    const testBoard = new Gameboard(8, 6);
+    setCoord.forEach((coord) => testBoard.addShip(coord[0], coord[1]));
     const attackRes = testBoard.receiveAttack(attackCoord);
     
     test('Check Gameboard attack miss', () => {
@@ -100,7 +103,8 @@ describe("Gameboard attack touch Vertical", () => {
     ]
     const attackCoord = [2, 0];
 
-    const testBoard = new Gameboard(setCoord);
+    const testBoard = new Gameboard(8, 6);
+    setCoord.forEach((coord) => testBoard.addShip(coord[0], coord[1]));
     const attackRes = testBoard.receiveAttack(attackCoord);
     
     test('Check Gameboard attack miss', () => {
@@ -130,7 +134,8 @@ describe("Gameboard attack touch sink first", () => {
         [[4, 1], [4, 5]]
     ]
 
-    const testBoard = new Gameboard(setCoord);
+    const testBoard = new Gameboard(8, 6);
+    setCoord.forEach((coord) => testBoard.addShip(coord[0], coord[1]));
     testBoard.receiveAttack([0, 5]);
     testBoard.receiveAttack([0, 0]);
     testBoard.receiveAttack([1, 5]);

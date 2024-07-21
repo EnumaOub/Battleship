@@ -1,10 +1,10 @@
 import Gameboard from './Gameboard'
 
 export default class Player {
-    constructor(name, realP, setCoord) {
+    constructor(name, realP, xSize, ySize) {
         this.realP = realP;
         this.name = name;
-        this.board = new Gameboard(setCoord);
+        this.board = new Gameboard(xSize, ySize);
     };
 
     setName(name) {

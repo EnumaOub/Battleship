@@ -1,13 +1,25 @@
 import Ship from './Ship'
 
 export default class Gameboard {
-    constructor(setCoord) {
+    constructor(xSize, ySize) {
         this.shipArr = [];
+        this.xSize = xSize;
+        this.ySize = ySize;
         this.attackNb = 0;
         this.attackMissed = 0;
-        this.shipAlive = setCoord.length;
-        setCoord.forEach((coord) => this.shipArr.push(new Ship(...coord)))
+        this.shipAlive = 0;
     };
+
+    addShip(coordInit, coordFin) {
+        if (this.checkCoordinate(coordInit) && this.checkCoordinate(coordFin)) {
+            this.shipArr.push(new Ship(coordInit, coordFin));
+            this.shipAlive++;
+        };
+    };
+
+    checkCoordinate(coord) {
+        return coord[0] < this.xSize && coord[1] < this.ySize
+    }
 
     checkShipAttack(ship, coord) {
         if (ship.position === "HORIZONTAL" && coord[1] === ship.coordInit[1]) {
@@ -22,25 +34,28 @@ export default class Gameboard {
     }
 
     receiveAttack(coord) {
-        let touched = null;
+        if(this.checkCoordinate(coord)) {
+            let touched = null;
         
-        for (let i=0; i<this.shipAlive; i++) {
-            if (this.checkShipAttack(this.shipArr[i], coord)) {
-                touched = i;
+            for (let i=0; i<this.shipAlive; i++) {
+                if (this.checkShipAttack(this.shipArr[i], coord)) {
+                    touched = i;
+                }
+            }
+            this.attackNb++;
+            if (touched !== null) {
+                this.shipArr[touched].hit();
+                if (this.shipArr[touched].sunk) {
+                    this.shipArr.splice(touched, 1);
+                    this.shipAlive--;
+                }
+                return true;
+            }
+            else {
+                this.attackMissed++;
+                return false;
             }
         }
-        this.attackNb++;
-        if (touched !== null) {
-            this.shipArr[touched].hit();
-            if (this.shipArr[touched].sunk) {
-                this.shipArr.splice(touched, 1);
-                this.shipAlive--;
-            }
-            return true;
-        }
-        else {
-            this.attackMissed++;
-            return false;
-        }
+        
     };
 };

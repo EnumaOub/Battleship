@@ -10,7 +10,8 @@ describe("Player init", () => {
     ];
     const name = "Player 1";
     const realP = true;
-    const testPlayer = new Player(name, realP, setCoord);
+    const testPlayer = new Player(name, realP, 9, 7);
+    setCoord.forEach((coord) => testPlayer.board.addShip(coord[0], coord[1]));
 
     test('Check Player Gameboard number of ships', () => {
         expect(testPlayer.name).toBe(name);
@@ -48,7 +49,8 @@ describe("Player test hit and miss ships", () => {
     ];
     const name = "Player 1";
     const realP = true;
-    const testPlayer = new Player(name, realP, setCoord);
+    const testPlayer = new Player(name, realP, 9, 7);
+    setCoord.forEach((coord) => testPlayer.board.addShip(coord[0], coord[1]));
     testPlayer.board.receiveAttack([0, 5]);
     testPlayer.board.receiveAttack([0, 0]);
 
