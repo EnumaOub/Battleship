@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: system-ui, sans-serif; 
+}
+
+/* Header parameters */
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    border-bottom: 1px solid rgb(0,0,0);
+    box-shadow: 1rem 0 1rem var(--shadow-box);
+    background-color: var(--back-header);
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+/* Footer */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: var(--back-header);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 1rem 3rem;
+    border-top: 1px solid rgb(0,0,0);
+    box-shadow: 1rem 0 1rem var(--shadow-box);
+
+}
+
+/* Main */
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.player {
+    display: flex;
+    gap: 1rem;
+}
+
+.player .active label {
+    font-weight: 800;
+}
+
+.player .active input {
+    background-color: rgba(0, 0, 255, 0.2);
+}
+
+.player1, .player2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.player1 label, .player2 label {
+    align-self: center;
+}
+
+.player1 input, .player2 input {
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 2rem;
+    font-size: 1.2rem;
+}
+
+.player1 input:focus, .player2 input:focus {
+    outline: 2px solid black;
+}
+
+/* Gameboard */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 5rem);
+    grid-template-rows: repeat(3, 5rem);
+}
+
+.grid div {
+    border: 3px solid rgba(0, 0, 0, 0.6);
+}
+
+.grid_elem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.grid_elem:hover {
+    background-color: rgba(0, 0, 255, 0.1);
+}
+
+.grid_elem.won {
+    background-color: rgba(0, 255, 0, 0.4);
+}
+
+.grid_elem[id*='r_0']{
+    border-top: none;
+}
+.grid_elem[id*='r_2']{
+    border-bottom: none;
+}
+.grid_elem[id*='c_2']{
+    border-right: none;
+}
+.grid_elem[id*='c_0']{
+    border-left: none;
+}
+
+/* Dialog */
+
+dialog {
+    position: absolute;
+    top: 40%;
+    left: 30%;
+    width: 40%;
+    background-color: var(--back-shelves);
+}
+
+
+dialog div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+dialog::backdrop {
+    background-color: rgba(153, 153, 153, 0.781);
+}
+dialog button {
+    margin-top: 1rem;
+    border-radius: 2rem;
+    border: 1px solid black;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+
+
+dialog #result-game {
+    font-size: 2rem;
+    font-weight: 800;
+}

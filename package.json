@@ -14,5 +14,9 @@
     "start": "webpack serve --open",
     "build": "webpack",
     "webgit": "sudo git subtree push --prefix dist origin gh-pages"
+  },
+  "dependencies": {
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0"
   }
 }
