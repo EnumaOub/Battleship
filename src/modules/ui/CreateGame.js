@@ -17,18 +17,6 @@ export const CreateGame = function() {
     const addShip = function(coord, player) {
         player.board.addShip(coord[0], coord[1])
     };
-    const initBoard = function() {
-        const cols = document.getElementById('coordX').value;
-        const rows = document.getElementById('coordY').value;
-        const array = [];
-        for (let i = 0; i < rows; i++) {
-            array[i] = [];
-            for (let j = 0; j < cols; j++) {
-                array[i][j] = "";
-            }
-        }
-        return array;
-    };
 
     const createPlayer = function(name, setCoord) {
         const playerName = document.getElementById(`${name}-name`).value ? document.getElementById(`${name}-name`).value: name;
@@ -41,19 +29,13 @@ export const CreateGame = function() {
     };
 
     let players = {
-        player1: {
-            player: createPlayer("player1", player1Coord),
-            board: initBoard()
-        },
-        player2: {
-            player: createPlayer("player2", player1Coord),
-            board: initBoard()
-        },
+        player1: createPlayer("player1", player1Coord),
+        player2: createPlayer("player2", player1Coord),
     };
 
 
     const generateTrueBoard = function(player) {
-        const board = player.board.boardG;
+        const board = player.board.boardT;
         const rows = board[0].length;
         const cols = board.length;
         const container = document.getElementsByClassName("grid true")[0];
@@ -70,10 +52,11 @@ export const CreateGame = function() {
         }
     };
 
-    const generateHiddenBoard = function(board) {
-        const container = document.getElementsByClassName("grid")[1];
+    const generateHiddenBoard = function(player) {
+        const board = player.board.boardG;
         const rows = board[0].length;
         const cols = board.length;
+        const container = document.getElementsByClassName("grid")[1];
         container.style["grid-template-columns"] = `repeat(${rows}, 2rem)`
         container.style["grid-template-rows"] = `repeat(${cols}, 2rem)`
         for (let row=0; row<rows; row++) {

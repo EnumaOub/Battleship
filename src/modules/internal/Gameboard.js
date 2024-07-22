@@ -8,15 +8,16 @@ export default class Gameboard {
         this.attackNb = 0;
         this.attackMissed = 0;
         this.shipAlive = 0;
-        this.boardG = this.initBoard(ySize, xSize);
+        this.boardT = this.initBoard(ySize, xSize, ".");
+        this.boardG = this.initBoard(ySize, xSize, "");
     };
 
-    initBoard(cols, rows) {
+    initBoard(cols, rows, data) {
         const array = [];
         for (let i = 0; i < rows; i++) {
             array[i] = [];
             for (let j = 0; j < cols; j++) {
-                array[i][j] = ".";
+                array[i][j] = data;
             }
         }
         return array;
@@ -25,19 +26,19 @@ export default class Gameboard {
     populateShip(ship) {
         if (ship.position === "HORIZONTAL") {
             for (let i=ship.coordInit[0]; i<=ship.coordFin[0]; i++) {
-                this.boardG[i][ship.coordInit[1]] = 'o';
+                this.boardT[i][ship.coordInit[1]] = 'o';
             }
         }
         else if (ship.position === "VERTICAL") {
             for (let i=ship.coordInit[1]; i<=ship.coordFin[1]; i++) {
-                this.boardG[ship.coordInit[0]][i] = 'o';
+                this.boardT[ship.coordInit[0]][i] = 'o';
             }
         }
     };
 
     showBoard() {
         let i = 0;
-        const boardV = [...this.boardG]
+        const boardV = [...this.boardT]
         console.log([' '].concat(Array.from(Array(8).keys())).toString().replace(/,/g,' '));
         boardV.forEach((line) => {
             console.log(`${i} ${line.toString().replace(/,/g,' ')}`)
@@ -80,8 +81,9 @@ export default class Gameboard {
                 }
             }
             this.attackNb++;
-            this.boardG[coord[0]][coord[1]] = "x";
+            this.boardT[coord[0]][coord[1]] = "x";
             if (touched !== null) {
+                this.boardG[coord[0]][coord[1]] = "o";
                 this.shipArr[touched].hit();
                 if (this.shipArr[touched].sunk) {
                     this.shipArr.splice(touched, 1);
@@ -90,6 +92,7 @@ export default class Gameboard {
                 return true;
             }
             else {
+                this.boardG[coord[0]][coord[1]] = "x";
                 this.attackMissed++;
                 return false;
             }

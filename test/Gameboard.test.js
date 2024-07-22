@@ -29,8 +29,8 @@ describe("Gameboard init", () => {
     test('Check ship position param init', () => {
         expect(testBoard.shipArr[1].position).toBe("VERTICAL");
     });
-    test('Check ship position in board', () => {
-        expect(testBoard.boardG[0][5]).toBe("o");
+    test('Check ship True board position in board', () => {
+        expect(testBoard.boardT[0][5]).toBe("o");
     });
 });
 
@@ -65,10 +65,16 @@ describe("Gameboard attack miss", () => {
         expect(testBoard.shipArr[1].sunk).toBe(false);
     });
     test('Check ship position in board', () => {
-        expect(testBoard.boardG[2][1]).toBe("o");
+        expect(testBoard.boardG[2][1]).toBe("");
     });
     test('Check position attacked in board', () => {
         expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("x");
+    });
+    test('Check ship True board position in board', () => {
+        expect(testBoard.boardT[2][1]).toBe("o");
+    });
+    test('Check position True board attacked in board', () => {
+        expect(testBoard.boardT[attackCoord[0]][attackCoord[1]]).toBe("x");
     });
 });
 
@@ -103,10 +109,16 @@ describe("Gameboard attack touch Horizontal", () => {
         expect(testBoard.shipArr[0].sunk).toBe(false);
     });
     test('Check ship position in board', () => {
-        expect(testBoard.boardG[4][3]).toBe("o");
+        expect(testBoard.boardG[4][3]).toBe("");
     });
-    test('Check position attacked in board', () => {
-        expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("x");
+    test('Check position attacked touched in board', () => {
+        expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("o");
+    });
+    test('Check ship True board position in board', () => {
+        expect(testBoard.boardT[4][3]).toBe("o");
+    });
+    test('Check True board position attacked in board', () => {
+        expect(testBoard.boardT[attackCoord[0]][attackCoord[1]]).toBe("x");
     });
 });
 
@@ -169,7 +181,11 @@ describe("Gameboard attack touch sink first", () => {
     test('Check Gameboard number of missed attack', () => {
         expect(testBoard.attackMissed).toBe(1);
     });
+
     test('Check ship attack in board', () => {
-        expect(testBoard.boardG[1][5]).toBe("x");
+        expect(testBoard.boardT[1][5]).toBe("x");
+    });
+    test('Check ship attack in board', () => {
+        expect(testBoard.boardG[1][5]).toBe("o");
     });
 });
