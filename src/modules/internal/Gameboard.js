@@ -36,9 +36,14 @@ export default class Gameboard {
         }
     };
 
+    transpose(arr) {
+        let [row] = arr
+        return row.map((value, column) => arr.map(row => row[column]))
+      }
+
     showBoard() {
         let i = 0;
-        const boardV = [...this.boardT]
+        const boardV = this.transpose([...this.boardT])
         console.log([' '].concat(Array.from(Array(8).keys())).toString().replace(/,/g,' '));
         boardV.forEach((line) => {
             console.log(`${i} ${line.toString().replace(/,/g,' ')}`)

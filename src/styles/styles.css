@@ -147,7 +147,14 @@ main {
     background-color: rgba(0, 255, 0, 0.4);
 }
 
+#info-game{
+    display: flex;
+    flex-direction: row;
+}
 
+#info-r {
+    margin-top: .2rem;
+}
 
 /* Dialog */
 
