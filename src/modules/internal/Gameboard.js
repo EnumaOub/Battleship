@@ -8,11 +8,48 @@ export default class Gameboard {
         this.attackNb = 0;
         this.attackMissed = 0;
         this.shipAlive = 0;
+        this.boardG = this.initBoard(xSize, ySize);
     };
+
+    initBoard(cols, rows) {
+        const array = [];
+        for (let i = 0; i < rows; i++) {
+            array[i] = [];
+            for (let j = 0; j < cols; j++) {
+                array[i][j] = ".";
+            }
+        }
+        return array;
+    }
+
+    populateShip(ship) {
+        if (ship.position === "HORIZONTAL") {
+            for (let i=ship.coordInit[0]; i<ship.coordFin[0]; i++) {
+                this.boardG[i][ship.coordInit[1]] = 'o';
+            }
+        }
+        else if (ship.position === "VERTICAL") {
+            for (let i=ship.coordInit[1]; i<ship.coordFin[1]; i++) {
+                this.boardG[ship.coordInit[0]][i] = 'o';
+            }
+        }
+    };
+
+    showBoard() {
+        let i = 0;
+        const boardV = [...this.boardG]
+        console.log([' '].concat(Array.from(Array(8).keys())).toString().replace(/,/g,' '));
+        boardV.forEach((line) => {
+            console.log(`${i} ${line.toString().replace(/,/g,' ')}`)
+            i++;
+        })
+    }
 
     addShip(coordInit, coordFin) {
         if (this.checkCoordinate(coordInit) && this.checkCoordinate(coordFin)) {
-            this.shipArr.push(new Ship(coordInit, coordFin));
+            const ship = new Ship(coordInit, coordFin)
+            this.shipArr.push(ship);
+            this.populateShip(ship);
             this.shipAlive++;
         };
     };
@@ -45,6 +82,7 @@ export default class Gameboard {
             this.attackNb++;
             if (touched !== null) {
                 this.shipArr[touched].hit();
+                this.boardG[coord[0]][coord[1]] = "x";
                 if (this.shipArr[touched].sunk) {
                     this.shipArr.splice(touched, 1);
                     this.shipAlive--;
