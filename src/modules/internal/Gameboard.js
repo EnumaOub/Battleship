@@ -80,9 +80,9 @@ export default class Gameboard {
                 }
             }
             this.attackNb++;
+            this.boardG[coord[0]][coord[1]] = "x";
             if (touched !== null) {
                 this.shipArr[touched].hit();
-                this.boardG[coord[0]][coord[1]] = "x";
                 if (this.shipArr[touched].sunk) {
                     this.shipArr.splice(touched, 1);
                     this.shipAlive--;

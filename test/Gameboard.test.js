@@ -29,6 +29,9 @@ describe("Gameboard init", () => {
     test('Check ship position param init', () => {
         expect(testBoard.shipArr[1].position).toBe("VERTICAL");
     });
+    test('Check ship position in board', () => {
+        expect(testBoard.boardG[0][5]).toBe("o");
+    });
 });
 
 describe("Gameboard attack miss", () => {
@@ -61,6 +64,12 @@ describe("Gameboard attack miss", () => {
     test('Check Gameboard second ship sunk param', () => {
         expect(testBoard.shipArr[1].sunk).toBe(false);
     });
+    test('Check ship position in board', () => {
+        expect(testBoard.boardG[2][1]).toBe("o");
+    });
+    test('Check position attacked in board', () => {
+        expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("x");
+    });
 });
 
 describe("Gameboard attack touch Horizontal", () => {
@@ -92,6 +101,12 @@ describe("Gameboard attack touch Horizontal", () => {
     });
     test('Check Gameboard first ship sunk param', () => {
         expect(testBoard.shipArr[0].sunk).toBe(false);
+    });
+    test('Check ship position in board', () => {
+        expect(testBoard.boardG[4][3]).toBe("o");
+    });
+    test('Check position attacked in board', () => {
+        expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("x");
     });
 });
 
@@ -153,5 +168,8 @@ describe("Gameboard attack touch sink first", () => {
     });
     test('Check Gameboard number of missed attack', () => {
         expect(testBoard.attackMissed).toBe(1);
+    });
+    test('Check ship attack in board', () => {
+        expect(testBoard.boardG[1][5]).toBe("x");
     });
 });
