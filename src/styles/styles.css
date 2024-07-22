@@ -72,6 +72,7 @@ main {
 .player1, .player2 {
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
 }
 
 .player1 label, .player2 label {
@@ -87,6 +88,34 @@ main {
 
 .player1 input:focus, .player2 input:focus {
     outline: 2px solid black;
+}
+
+.info-board input {
+    max-width: 3rem;
+}
+
+.parameters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.board-size {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+
+#run-game {
+    border-radius: 2rem;
+    border: 1px solid ;
+    box-shadow: 0.05rem 0 0.05rem 0.05rem;
+    width: 20rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: rgba(117, 117, 248, 0.705);
 }
 
 /* Gameboard */
