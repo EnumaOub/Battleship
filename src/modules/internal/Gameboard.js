@@ -8,6 +8,7 @@ export default class Gameboard {
         this.attackNb = 0;
         this.attackMissed = 0;
         this.shipAlive = 0;
+        this.possibleMove = []
         this.boardT = this.initBoard(ySize, xSize, ".");
         this.boardG = this.initBoard(ySize, xSize, "");
     };
@@ -18,6 +19,7 @@ export default class Gameboard {
             array[i] = [];
             for (let j = 0; j < cols; j++) {
                 array[i][j] = data;
+                this.possibleMove.push([i, j])
             }
         }
         return array;
@@ -87,6 +89,7 @@ export default class Gameboard {
             }
             this.attackNb++;
             this.boardT[coord[0]][coord[1]] = "x";
+            this.possibleMove = this.possibleMove.filter(coordd => coordd.toString() !== coord.toString());
             if (touched !== null) {
                 this.boardG[coord[0]][coord[1]] = "o";
                 this.shipArr[touched].hit();

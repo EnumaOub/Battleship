@@ -29,6 +29,13 @@ export const ControlGame = function() {
         return result;
     };
 
+    const attackRandom = function(player) {
+        const containerInfo = document.getElementById("info-r");
+        const playerActive = document.getElementById("playerG").textContent
+        const nbShip = player.board.shipAlive;
+
+    }
+
     return {
         attackC
     };
