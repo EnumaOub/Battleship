@@ -8,7 +8,7 @@ export default class Gameboard {
         this.attackNb = 0;
         this.attackMissed = 0;
         this.shipAlive = 0;
-        this.boardG = this.initBoard(xSize, ySize);
+        this.boardG = this.initBoard(ySize, xSize);
     };
 
     initBoard(cols, rows) {
@@ -24,12 +24,12 @@ export default class Gameboard {
 
     populateShip(ship) {
         if (ship.position === "HORIZONTAL") {
-            for (let i=ship.coordInit[0]; i<ship.coordFin[0]; i++) {
+            for (let i=ship.coordInit[0]; i<=ship.coordFin[0]; i++) {
                 this.boardG[i][ship.coordInit[1]] = 'o';
             }
         }
         else if (ship.position === "VERTICAL") {
-            for (let i=ship.coordInit[1]; i<ship.coordFin[1]; i++) {
+            for (let i=ship.coordInit[1]; i<=ship.coordFin[1]; i++) {
                 this.boardG[ship.coordInit[0]][i] = 'o';
             }
         }
