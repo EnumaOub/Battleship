@@ -1,15 +1,9 @@
 
 
 export const ControlGame = function() {
-
-    const attackC = function(event, player) {
-        let target = event.target;
+    const dealResult = function(result, nbShip, target, player) {
         const containerInfo = document.getElementById("info-r");
         const playerActive = document.getElementById("playerG").textContent
-        const nbShip = player.board.shipAlive;
-        if (target.className != "grid_elem") return
-        let [yCoord, xCoord] = target.id.match(/\d+/g);
-        const result = player.board.receiveAttack([Number(xCoord), Number(yCoord)]);
         if (result) {
             target.textContent = "O";
             target.style["background-color"] = "rgba(0,255,0,.3)"
@@ -26,17 +20,32 @@ export const ControlGame = function() {
             containerInfo.textContent = `: ${playerActive} Missed`
             
         }
+    }
+
+    const attackC = function(event, player) {
+        let target = event.target;
+        const nbShip = player.board.shipAlive;
+        if (target.className != "grid_elem") return
+        let [yCoord, xCoord] = target.id.match(/\d+/g);
+        const result = player.board.receiveAttack([Number(xCoord), Number(yCoord)]);
+        dealResult(result, nbShip, target, player);
         return result;
     };
 
     const attackRandom = function(player) {
-        const containerInfo = document.getElementById("info-r");
-        const playerActive = document.getElementById("playerG").textContent
+        
         const nbShip = player.board.shipAlive;
+        const possibleMove = player.board.possibleMove;
+        const coord = possibleMove[Math.floor(Math.random()*possibleMove.length)];
+        const target = document.getElementById(`r_${coord[1]}_c_${coord[0]}`)
+        const result = player.board.receiveAttack([Number(coord[0]), Number(coord[1])]);
+        dealResult(result, nbShip, target, player);
+        return result;
 
     }
 
     return {
-        attackC
+        attackC,
+        attackRandom
     };
 };

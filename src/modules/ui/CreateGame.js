@@ -4,18 +4,17 @@ import { ControlGame } from "./ControlGame";
 export const CreateGame = function() {
 
     const player1Coord = [
-        [[0, 5], [2, 5]],
-        [[2, 3], [2, 1]],
+        [[0, 3], [0, 5]],
+        [[1, 3], [2, 3]],
         [[4, 1], [4, 3]]
     ];
 
     const player2Coord = [
-        [[3, 1], [0, 1]],
-        [[0, 4], [0, 0]],
-        [[2, 1], [2, 5]]
+        [[0, 3], [0, 5]],
+        [[1, 3], [2, 3]],
+        [[4, 1], [4, 3]]
     ];
 
-    
 
     const controller = ControlGame();
    
@@ -66,6 +65,32 @@ export const CreateGame = function() {
         players[playerNonActive].toggleActive();
     }
 
+    const attack = function() {
+        if (!players[getActivePlayer()].realP) {
+            const resAttack = controller.attackRandom(players[getNonActivePlayer()]);
+            checkResAttack(resAttack);
+            
+        }
+    }
+
+    const checkResAttack = function(resAttack) {
+        
+            
+        if (!resAttack) {
+            changePlayer()
+        }
+        showPlayer()
+        generateBoard(players[getNonActivePlayer()].board.boardG)
+        console.log(players)
+        if (players[getNonActivePlayer()].board.shipAlive === 0){
+            endGame();
+        }
+        else {
+            
+            setTimeout(function(){attack();}, 200);
+        }
+    }
+
 
     const generateBoard = function(board) {
         const rows = board[0].length;
@@ -84,15 +109,9 @@ export const CreateGame = function() {
             }
         }
         container.onclick = function(event) {
-            if (!controller.attackC(event, players[getNonActivePlayer()])) {
-                changePlayer()
-            }
-            showPlayer()
-            generateBoard(players[getNonActivePlayer()].board.boardG)
-            console.log(players)
-            if (players[getNonActivePlayer()].board.shipAlive === 0){
-                endGame();
-            }
+            const resAttack = controller.attackC(event, players[getNonActivePlayer()]);
+            
+            checkResAttack(resAttack);
             
         }
     };
@@ -113,6 +132,7 @@ export const CreateGame = function() {
         players, 
         generateBoard,
         showPlayer,
-        getActivePlayer
+        getActivePlayer,
+        attack
     };
 };
