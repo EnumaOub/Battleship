@@ -29,6 +29,7 @@ export const CreateGame = function() {
         if (active) {
             player.toggleActive();
         }
+        randomShip(player);
         return player;
     };
 

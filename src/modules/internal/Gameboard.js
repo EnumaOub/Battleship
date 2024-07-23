@@ -27,13 +27,17 @@ export default class Gameboard {
 
     populateShip(ship) {
         if (ship.position === "HORIZONTAL") {
-            for (let i=ship.coordInit[0]; i<=ship.coordFin[0]; i++) {
-                this.boardT[i][ship.coordInit[1]] = 'o';
+            this.boardT[ship.coordInit[0]][ship.coordInit[1]] = '|';
+            this.boardT[ship.coordFin[0]][ship.coordInit[1]] = '>';
+            for (let i=ship.coordInit[0]+1; i<=ship.coordFin[0]-1; i++) {
+                this.boardT[i][ship.coordInit[1]] = '--';
             }
         }
         else if (ship.position === "VERTICAL") {
-            for (let i=ship.coordInit[1]; i<=ship.coordFin[1]; i++) {
-                this.boardT[ship.coordInit[0]][i] = 'o';
+            this.boardT[ship.coordInit[0]][ship.coordInit[1]] = '^';
+            this.boardT[ship.coordInit[0]][ship.coordFin[1]] = '__';
+            for (let i=ship.coordInit[1]+1; i<=ship.coordFin[1]-1; i++) {
+                this.boardT[ship.coordInit[0]][i] = '|';
             }
         }
     };
