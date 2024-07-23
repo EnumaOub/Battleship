@@ -120,14 +120,23 @@ main {
 
 /* Gameboard */
 
-.grid {
+.grid, .board-ship1, .board-ship2 {
     display: grid;
     grid-template-columns: repeat(3, 5rem);
     grid-template-rows: repeat(3, 5rem);
 }
 
-.grid div {
+.grid div, .board-ship1 div, .board-ship2 div {
     border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.grid_elem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .grid_elem {

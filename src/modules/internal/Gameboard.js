@@ -53,6 +53,39 @@ export default class Gameboard {
         })
     }
 
+    resetShip() {
+        this.shipArr = [];
+        this.attackNb = 0;
+        this.attackMissed = 0;
+        this.shipAlive = 0;
+        this.possibleMove = []
+        this.boardT = this.initBoard(this.ySize, this.xSize, ".");
+        this.boardG = this.initBoard(this.ySize, this.xSize, "");
+    }
+
+    generateRandomShip() {
+        let ship = null;
+        while (!ship) {
+            const coordInit = this.possibleMove[Math.floor(Math.random()*this.possibleMove.length)];
+            if (this.checkCoordinate(coordInit) && this.checkShipCoord(coordInit)) {
+                const length = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+                let coordFin;
+                if (Math.random() < 0.5) {
+                    coordFin = [coordInit[0], coordInit[1] + length];
+                }
+                else {
+                    coordFin = [coordInit[0] + length, coordInit[1]];
+                }
+                if (this.checkCoordinate(coordFin) && this.checkShipCoord(coordFin)) {
+                    this.addShip(coordInit, coordFin);
+                    ship = true;
+                }
+            }
+            
+        }
+        
+    }
+
     addShip(coordInit, coordFin) {
         if (this.checkCoordinate(coordInit) && this.checkCoordinate(coordFin)) {
             const ship = new Ship(coordInit, coordFin)
@@ -61,6 +94,19 @@ export default class Gameboard {
             this.shipAlive++;
         };
     };
+
+    checkShipCoord(coord) {
+        let checkShip = true;
+        this.shipArr.forEach((ship) => {
+            if (ship.position === "HORIZONTAL" && coord[1] === ship.coordInit[1]) {
+                checkShip = !(coord[0] >= ship.coordInit[0] && coord[0] <= ship.coordFin[0]) 
+            }
+            else if (ship.position === "VERTICAL" && coord[0] === ship.coordInit[0]) {
+                checkShip = !(coord[1] >= ship.coordInit[1] && coord[1] <= ship.coordFin[1]) 
+            }
+        })
+        return checkShip;
+    }
 
     checkCoordinate(coord) {
         return coord[0] < this.xSize && coord[1] < this.ySize

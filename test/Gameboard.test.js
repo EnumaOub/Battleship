@@ -189,3 +189,32 @@ describe("Gameboard attack touch sink first", () => {
         expect(testBoard.boardG[1][5]).toBe("o");
     });
 });
+
+
+describe("Gameboard generate random ships", () => {
+
+    const testBoard = new Gameboard(8, 6);
+    testBoard.generateRandomShip();
+    testBoard.generateRandomShip();
+    testBoard.generateRandomShip();
+    
+    test('Check Gameboard number of ships', () => {
+        expect(testBoard.shipAlive).toBe(3);
+    });
+    console.log(testBoard.boardT)
+});
+
+
+describe("Gameboard reset random ships", () => {
+
+    const testBoard = new Gameboard(8, 6);
+    testBoard.generateRandomShip();
+    testBoard.generateRandomShip();
+    testBoard.generateRandomShip();
+    testBoard.resetShip();
+    
+    test('Check Gameboard number of ships', () => {
+        expect(testBoard.shipAlive).toBe(0);
+    });
+    console.log(testBoard.boardT)
+});
