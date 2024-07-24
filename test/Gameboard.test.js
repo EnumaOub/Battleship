@@ -30,7 +30,7 @@ describe("Gameboard init", () => {
         expect(testBoard.shipArr[1].position).toBe("VERTICAL");
     });
     test('Check ship True board position in board', () => {
-        expect(testBoard.boardT[0][5]).toBe("o");
+        expect(testBoard.boardT[0][5]).toBe("|");
     });
 });
 
@@ -71,7 +71,7 @@ describe("Gameboard attack miss", () => {
         expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("x");
     });
     test('Check ship True board position in board', () => {
-        expect(testBoard.boardT[2][1]).toBe("o");
+        expect(testBoard.boardT[2][1]).toBe("|");
     });
     test('Check position True board attacked in board', () => {
         expect(testBoard.boardT[attackCoord[0]][attackCoord[1]]).toBe("x");
@@ -115,7 +115,7 @@ describe("Gameboard attack touch Horizontal", () => {
         expect(testBoard.boardG[attackCoord[0]][attackCoord[1]]).toBe("o");
     });
     test('Check ship True board position in board', () => {
-        expect(testBoard.boardT[4][3]).toBe("o");
+        expect(testBoard.boardT[4][3]).toBe("|");
     });
     test('Check True board position attacked in board', () => {
         expect(testBoard.boardT[attackCoord[0]][attackCoord[1]]).toBe("x");
@@ -194,9 +194,9 @@ describe("Gameboard attack touch sink first", () => {
 describe("Gameboard generate random ships", () => {
 
     const testBoard = new Gameboard(8, 6);
-    testBoard.generateRandomShip();
-    testBoard.generateRandomShip();
-    testBoard.generateRandomShip();
+    testBoard.addRandomShip();
+    testBoard.addRandomShip();
+    testBoard.addRandomShip();
     
     test('Check Gameboard number of ships', () => {
         expect(testBoard.shipAlive).toBe(3);
@@ -208,10 +208,10 @@ describe("Gameboard generate random ships", () => {
 describe("Gameboard reset random ships", () => {
 
     const testBoard = new Gameboard(8, 6);
-    testBoard.generateRandomShip();
-    testBoard.generateRandomShip();
-    testBoard.generateRandomShip();
-    testBoard.resetShip();
+    testBoard.addRandomShip();
+    testBoard.addRandomShip();
+    testBoard.addRandomShip();
+    testBoard.resetBoard();
     
     test('Check Gameboard number of ships', () => {
         expect(testBoard.shipAlive).toBe(0);

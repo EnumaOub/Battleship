@@ -3,19 +3,14 @@ import { ControlGame } from "./ControlGame";
 
 export const CreateGame = function() {
 
-
     const controller = ControlGame();
-   
-    const addShip = function(coord, player) {
-        player.board.addShip(coord[0], coord[1])
-    };
 
     const randomShip = function(player, nbShip=3){
         console.log(player.board)
-        player.board.resetShip();
+        player.board.resetBoard();
         console.log(player.board)
         for (let i=0; i<nbShip; i++){
-            player.board.generateRandomShip();
+            player.board.addRandomShip();
         }
         console.log(player.board)
     }
@@ -72,8 +67,6 @@ export const CreateGame = function() {
     }
 
     const checkResAttack = function(resAttack) {
-        
-            
         if (!resAttack) {
             changePlayer()
         }
@@ -85,7 +78,7 @@ export const CreateGame = function() {
         }
         else {
             
-            setTimeout(function(){attack();}, 200);
+            setTimeout(function(){attack();}, 100);
         }
     }
 
