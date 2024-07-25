@@ -6,13 +6,10 @@ export const CreateGame = function() {
     const controller = ControlGame();
 
     const randomShip = function(player, nbShip=3){
-        console.log(player.board)
         player.board.resetBoard();
-        console.log(player.board)
         for (let i=0; i<nbShip; i++){
-            player.board.addRandomShip();
+            player.board.addRandomShip(i+2);
         }
-        console.log(player.board)
     }
 
     const createPlayer = function(name, active=false) {
@@ -56,6 +53,10 @@ export const CreateGame = function() {
         const playerNonActive = getNonActivePlayer();
         players[playerActive].toggleActive();
         players[playerNonActive].toggleActive();
+        const boardP1 = document.getElementsByClassName(`grid_${players[playerActive].name}`)[0]
+        const boardP2 = document.getElementsByClassName(`grid_${players[playerNonActive].name}`)[0]
+        boardP1.classList.toggle("active");
+        boardP2.classList.toggle("active");
     }
 
     const attack = function() {
@@ -71,8 +72,6 @@ export const CreateGame = function() {
             changePlayer()
         }
         showPlayer()
-        generateBoard(players[getNonActivePlayer()].board.boardG, "grid")
-        console.log(players)
         if (players[getNonActivePlayer()].board.shipAlive === 0){
             endGame();
         }
@@ -83,35 +82,44 @@ export const CreateGame = function() {
     }
 
 
-    const generateBoard = function(board, name) {
+    const generateBoard = function(playerName, board, name) {
         const rows = board[0].length;
         const cols = board.length;
-        const container = document.getElementsByClassName(name)[0];
+        const container = document.getElementById(name);
         container.innerHTML = "";
+        container.classList.add(`grid_p`)
+        container.classList.add(`grid_${playerName}`)
         container.style["grid-template-columns"] = `repeat(${cols}, 2rem)`
         container.style["grid-template-rows"] = `repeat(${rows}, 2rem)`
         for (let row=0; row<rows; row++) {
             for (let col=0; col<cols; col++) {
                 const grid_elem = document.createElement("div");
-                grid_elem.className = "grid_elem";
+                grid_elem.className = `grid_elem grid_elem_${playerName}`;
                 grid_elem.id = `r_${row}_c_${col}`;
                 grid_elem.textContent = board[col][row];
                 container.appendChild(grid_elem);
             }
         }
         container.onclick = function(event) {
-            const resAttack = controller.attackC(event, players[getNonActivePlayer()]);
+            if (event.target.parentElement.classList.contains("active")) {
+                const resAttack = controller.attackC(event, players[getNonActivePlayer()]);
             
-            checkResAttack(resAttack);
-            
+                checkResAttack(resAttack);
+            }
         }
     };
 
     const endGame = function() {
-        const container = document.getElementsByClassName("grid")[0];
+        const containerP1 = document.getElementById("player1-grid");
+        const containerP2 = document.getElementById("player2-grid");
         const playerWin = players[getActivePlayer()];
-        container.innerHTML = "";
-        container.textContent = `${playerWin.name} Win the Game`
+        
+        document.getElementsByClassName(`grid_${players["player1"].name}`)[0].className = "";
+        document.getElementsByClassName(`grid_${players["player2"].name}`)[0].className = "";
+
+        containerP1.innerHTML = "";
+        containerP2.innerHTML = "";
+        document.getElementById("info-r").textContent = `${playerWin.name} win !!!`
     }
 
     const showPlayer = function() {
@@ -119,12 +127,98 @@ export const CreateGame = function() {
         title.textContent = players[getActivePlayer()].name;
     }
 
+    const runGame = function() {
+        showPlayer()
+        generateBoard(players.player1.name, players.player1.board.boardG, "player1-grid")
+        generateBoard(players.player2.name, players.player2.board.boardG, "player2-grid")
+        const boardP = document.getElementsByClassName(`grid_${players.player2.name}`)[0]
+        boardP.classList.toggle("active");
+        if (!players.player1.realP){
+            attack()
+        }
+    }
+    
+    const getGame = function() {
+        if (players.player1.realP && players.player2.realP) {
+            const dialogP1 = document.getElementById("player1-ship");
+            const buttonRand1 = document.getElementById("rand-ship1");
+            const buttonPlay1 = document.getElementById("play1-game");
+            randomShip(players.player1);
+            generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1")
+            buttonPlay1.textContent = `Go to ${players.player2.name} Board`
+            dialogP1.showModal();
+    
+            buttonRand1.addEventListener("click", (event) => {
+                randomShip(players.player1);
+                generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1")
+            })
+            
+            buttonPlay1.addEventListener("click", (event) => {
+                const dialogP2 = document.getElementById("player2-ship");
+                const buttonRand2 = document.getElementById("rand-ship2");
+                const buttonPlay2 = document.getElementById("play2-game");
+                dialogP1.close();
+                randomShip(players.player2);
+                generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2")
+                dialogP2.showModal();
+                buttonRand2.addEventListener("click", (event) => {
+                    randomShip(players.player2);
+                    generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2")
+                })
+                buttonPlay2.addEventListener("click", (event) => {
+                    dialogP2.close();
+                    runGame();
+                })
+            })
+        }
+        else if (players.player1.realP) {
+            const dialogP1 = document.getElementById("player1-ship");
+            const buttonRand1 = document.getElementById("rand-ship1");
+            const buttonPlay1 = document.getElementById("play1-game");
+            randomShip(players.player2);
+            generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1")
+            buttonPlay1.textContent = `Play Game`
+            dialogP1.showModal();
+            buttonRand1.addEventListener("click", (event) => {
+                randomShip(players.player1);
+                generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1")
+            })
+            buttonPlay1.addEventListener("click", (event) => {
+                dialogP1.close();
+                runGame();
+            })
+        }
+        else if (players.player2.realP) {
+            const dialogP2 = document.getElementById("player2-ship");
+            const buttonRand2 = document.getElementById("rand-ship2");
+            const buttonPlay2 = document.getElementById("play2-game");
+            randomShip(players.player1);
+            generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2")
+            dialogP2.showModal();
+            buttonRand2.addEventListener("click", (event) => {
+                randomShip(players.player2);
+                generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2")
+            })
+            buttonPlay2.addEventListener("click", (event) => {
+                dialogP2.close();
+                runGame();
+            })
+        }
+        else {
+            randomShip(players.player1);
+            randomShip(players.player2);
+            runGame();
+        }
+    } 
+    
+
     return { 
         players, 
         generateBoard,
         showPlayer,
         getActivePlayer,
         attack,
-        randomShip
+        randomShip,
+        getGame
     };
 };

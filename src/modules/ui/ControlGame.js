@@ -7,7 +7,6 @@ export const ControlGame = function() {
         const playerActive = document.getElementById("playerG").textContent
         // Check if one ship was hit
         if (result) {
-            target.textContent = "O";
             target.style["background-color"] = "rgba(0,255,0,.3)"
             if (nbShip === player.board.shipAlive) {
                 containerInfo.textContent = `: ${playerActive} Touched`
@@ -17,7 +16,6 @@ export const ControlGame = function() {
             }
         }
         else {
-            target.textContent = "X";
             target.style["background-color"] = "rgba(255,0,0,.3)"
             containerInfo.textContent = `: ${playerActive} Missed`
             
@@ -31,7 +29,7 @@ export const ControlGame = function() {
         // Get position on front associated with the coordinate clicked by player
         let target = event.target;
         // Check that the coordinate clicked is on the grid
-        if (target.className != "grid_elem") return
+        if (!target.classList.contains(`grid_elem_${player.name}`)) return
         // Extract the coordinate from the id of the grid element
         let [yCoord, xCoord] = target.id.match(/\d+/g);
         // Attack the player's board given
@@ -50,7 +48,7 @@ export const ControlGame = function() {
         // get one random coordinate in all possible moves
         const coord = possibleMove[Math.floor(Math.random() * possibleMove.length)];
         // Get position on front associated with the coordinate obtained
-        const target = document.getElementById(`r_${coord[1]}_c_${coord[0]}`);
+        const target = document.querySelector(`#r_${coord[1]}_c_${coord[0]}.grid_elem_${player.name}`);
         // Attack the player's board given
         const result = player.board.receiveAttack([Number(coord[0]), Number(coord[1])]);
         // Apply the results

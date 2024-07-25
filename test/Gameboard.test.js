@@ -194,9 +194,9 @@ describe("Gameboard attack touch sink first", () => {
 describe("Gameboard generate random ships", () => {
 
     const testBoard = new Gameboard(8, 6);
-    testBoard.addRandomShip();
-    testBoard.addRandomShip();
-    testBoard.addRandomShip();
+    testBoard.addRandomShip(2);
+    testBoard.addRandomShip(4);
+    testBoard.addRandomShip(1);
     
     test('Check Gameboard number of ships', () => {
         expect(testBoard.shipAlive).toBe(3);
@@ -208,9 +208,9 @@ describe("Gameboard generate random ships", () => {
 describe("Gameboard reset random ships", () => {
 
     const testBoard = new Gameboard(8, 6);
-    testBoard.addRandomShip();
-    testBoard.addRandomShip();
-    testBoard.addRandomShip();
+    testBoard.addRandomShip(2);
+    testBoard.addRandomShip(3);
+    testBoard.addRandomShip(4);
     testBoard.resetBoard();
     
     test('Check Gameboard number of ships', () => {

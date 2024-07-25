@@ -66,14 +66,13 @@ export default class Gameboard {
     }
 
     // Function to add a ship randomly on the board
-    addRandomShip() {
+    addRandomShip(length=3) {
         let ship = null;
         while (!ship) {
             const coordInit = this.possibleMove[Math.floor(Math.random()*this.possibleMove.length)];
             // for the initial coordinate we check if it is in the board and if it is not on another ship
             if (this.checkCoordinate(coordInit) && this.checkShipCoord(coordInit)) {
                 // The ships are between a length of 2 and 4
-                const length = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
                 let coordFin;
                 // We randomly create a ship hozizontal or vertical
                 if (Math.random() < 0.5) {
