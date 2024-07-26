@@ -166,7 +166,11 @@ export const CreateGame = function() {
     
     // Main function selecting the ship for the human players
     const getGame = function() {
+        const player1Name = document.getElementById("player1-game-name");
+        const player2Name = document.getElementById("player2-game-name");
         checkPlayersName();
+        player1Name.textContent = players.player1.name;
+        player2Name.textContent = players.player2.name;
         if (players.player1.realP && players.player2.realP) {
             const dialogP1 = document.getElementById("player1-ship");
             const buttonRand1 = document.getElementById("rand-ship1");
@@ -248,8 +252,6 @@ export const CreateGame = function() {
         document.getElementsByClassName(`grid_${players["player1"].name}`)[0].className = "";
         document.getElementsByClassName(`grid_${players["player2"].name}`)[0].className = "";
 
-        containerP1.innerHTML = "";
-        containerP2.innerHTML = "";
         document.getElementById("info-r").textContent = `${playerWin.name} win !!!`
     };
     

@@ -9,11 +9,21 @@ body {
 
 main {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
     gap: 2rem;
     margin-top: 1rem;
+}
+
+#gen-param {
+    overflow: auto;
+    width: 40%;
+}
+
+#game {
+    overflow: auto;
+    width: 40%;
 }
 
 .player {

@@ -1,113 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <title>Battleship</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <header>
-        <div id="title-page">
-            <h1>Battleship game</h1>
-        </div>
-
+      <div id="title-page">
+        <h1>Battleship game</h1>
+      </div>
     </header>
 
     <main>
+      <div id="gen-param">
         <div class="parameters">
-            <h3>Board Parameters</h3>
-            <div class="info-board">
-                <div class="board-size">
-                    <div class="coord-x">
-                        <label for="coordX">x</label>
-                        <input type="number" name="coordX" id="coordX" value="8" max="10" min="0" />
-                    </div>
-                    <div class="coord-y">
-                        <label for="coordY">y</label>
-                        <input type="number" name="coordY" id="coordY" value="6" max="10" min="0" />
-                    </div>
-                </div>
+          <h3>Board Parameters</h3>
+          <div class="info-board">
+            <div class="board-size">
+              <div class="coord-x">
+                <label for="coordX">x</label>
+                <input
+                  type="number"
+                  name="coordX"
+                  id="coordX"
+                  value="8"
+                  max="10"
+                  min="0"
+                />
+              </div>
+              <div class="coord-y">
+                <label for="coordY">y</label>
+                <input
+                  type="number"
+                  name="coordY"
+                  id="coordY"
+                  value="6"
+                  max="10"
+                  min="0"
+                />
+              </div>
+            </div>
+          </div>
+          <h3>Players Parameters</h3>
+          <div class="player">
+            <div class="player1 active">
+              <label for="player1-name"> Player 1</label>
+              <input
+                type="text"
+                name="player1-name"
+                id="player1-name"
+                value="Player 1"
+              />
+              <input type="checkbox" id="player1-realp" name="player1-realp" />
+              <label for="player1-realp">Human ?</label><br />
+            </div>
+            <div class="player2">
+              <label for="player2-name">Player 2</label>
+              <input
+                type="text"
+                name="player2-name"
+                id="player2-name"
+                value="Player 2"
+              />
+              <input type="checkbox" id="player2-realp" name="player2-realp" />
+              <label for="player2-realp">Human ?</label><br />
+            </div>
+          </div>
+          <div>
+            <button id="run-game">RUN GAME</button>
+          </div>
+        </div>
+        <div id="info-game">
+          <h3 id="playerG">Info:</h3>
+          <div id="info-r">
+            Please Enter the players and gameboard informations for the game
+          </div>
+        </div>
+      </div>
 
-            </div>
-            <h3>Players Parameters</h3>
-            <div class="player">
-                <div class="player1 active">
-                    <label for="player1-name"> Player 1</label>
-                    <input type="text" name="player1-name" id="player1-name" value="Player 1" />
-                    <input type="checkbox" id="player1-realp" name="player1-realp">
-                    <label for="player1-realp">Human ?</label><br>
-                </div>
-                <div class="player2">
-                    <label for="player2-name">Player 2</label>
-                    <input type="text" name="player2-name" id="player2-name" value="Player 2" />
-                    <input type="checkbox" id="player2-realp" name="player2-realp">
-                    <label for="player2-realp">Human ?</label><br>
-                </div>
-            </div>
-            <div>
-                <button id="run-game">RUN GAME</button>
-            </div>
+      <div id="game">
+        <div class="grid" id="gameboard-loc">
+            <h3 id="player1-game-name">Player 1</h3>
+          <div id="player1-grid"></div>
+          <h3 id="player2-game-name">Player 2</h3>
+          <div id="player2-grid"></div>
         </div>
-        <div id="game">
-            <div id="info-game">
-                <h3 id="playerG">Info: </h3>
-                <div id="info-r"> Please Enter the players and gameboard informations for the game</div>
-            </div>
-            <div class="grid" id="gameboard-loc">
-                <div id="player1-grid"></div>
-                <div id="player2-grid"></div>
-            </div>
-        </div>
-        
+      </div>
     </main>
 
-
-
-
     <footer>
-        <p>Copyright &copy EnumaOub <a href="https://github.com/EnumaOub"><i style="font-size:24px"
-                    class="fa">&#xf09b;</i></a></p>
+      <a href="https://github.com/EnumaOub"><i class="fa">&#xf09b;</i></a>
     </footer>
 
     <dialog id="player1-ship">
-        <div>
-            <div id="board-ship1">
-                
-            </div>
-            <button type="button" id="rand-ship1">Randomize Ship</button>
+      <div>
+        <div id="board-ship1"></div>
+        <button type="button" id="rand-ship1">Randomize Ship</button>
 
-            <button type="button" id="play1-game">Play</button>
-
-        </div>
-    
+        <button type="button" id="play1-game">Play</button>
+      </div>
     </dialog>
     <dialog id="player2-ship">
-        <div>
-            <div id="board-ship2">
-                
-            </div>
-            <button type="button" id="rand-ship2">Randomize Ship</button>
+      <div>
+        <div id="board-ship2"></div>
+        <button type="button" id="rand-ship2">Randomize Ship</button>
 
-            <button type="button" id="play2-game">Play</button>
-
-        </div>
-    
+        <button type="button" id="play2-game">Play</button>
+      </div>
     </dialog>
-
 
     <dialog id="restart-game">
-        <div>
-            <div id="result-game">
+      <div>
+        <div id="result-game"></div>
 
-            </div>
-
-            <button type="button" id="restart">Restart Game ?</button>
-
-        </div>
-    
+        <button type="button" id="restart">Restart Game ?</button>
+      </div>
     </dialog>
-    
-</body>
+  </body>
 </html>
