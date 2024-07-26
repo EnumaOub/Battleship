@@ -7,7 +7,7 @@ export const ControlGame = function() {
         const playerActive = document.getElementById("playerG").textContent
         // Check if one ship was hit
         if (result) {
-            target.style["background-color"] = "rgba(0,255,0,.3)"
+            target.style["background-color"] = "rgba(255,0,0,.8)"
             if (nbShip === player.board.shipAlive) {
                 containerInfo.textContent = `: ${playerActive} Touched`
             }
@@ -16,7 +16,7 @@ export const ControlGame = function() {
             }
         }
         else {
-            target.style["background-color"] = "rgba(255,0,0,.3)"
+            target.style["background-color"] = "rgba(0,0,255,.8)"
             containerInfo.textContent = `: ${playerActive} Missed`
             
         }
