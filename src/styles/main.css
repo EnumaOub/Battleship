@@ -15,6 +15,7 @@ body {
     color: #fff;
     font-family: 'Arial', sans-serif;
     min-height: 100%;
+    color: #ffeb3b; 
 }
 
 body::before {
@@ -29,7 +30,7 @@ body::before {
 }
 
 h1, h2, h3 {
-    font-family: 'Bungee', cursive; /* Nautical font example */
+    font-family: 'Nautilus Pompilius', 'Arial Black', sans-serif;
     color: #ffeb3b; /* Bright yellow for contrast */
 }
   
@@ -45,4 +46,14 @@ main {
     gap: 2rem;
     margin-top: 1rem;
     min-height: 80%;
+}
+
+#gen-param {
+    overflow: auto;
+    width: 40%;
+}
+
+#game {
+    overflow: auto;
+    width: 40%;
 }

@@ -1,13 +1,3 @@
-#gen-param {
-    overflow: auto;
-    width: 40%;
-}
-
-#game {
-    overflow: auto;
-    width: 40%;
-}
-
 .player {
     display: flex;
     gap: 1rem;
@@ -19,18 +9,37 @@
     gap: 0.5rem;
 }
 
+#player1-realp {
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    border: 1px solid #ccc;
+}
+
+#player1-realp:after {
+    border-top: none;
+    border-right: none;
+    border: 0.2rem solid #fff;
+    transform: rotate(-45deg);
+}
+
+#player1-realp:checked {
+    background-color: #66bb6a;
+    border-color: #66bb6a;
+}
+
 .player1 label, .player2 label {
     align-self: center;
 }
 
-.player1 input, .player2 input {
+#player1-name, #player2-name {
     padding: 0.5rem;
     border: 1px solid black;
     border-radius: 2rem;
     font-size: 1.2rem;
 }
 
-.player1 input:focus, .player2 input:focus {
+#player1-name:focus, #player2-name:focus {
     outline: 2px solid black;
 }
 
@@ -59,6 +68,24 @@
     width: 20rem;
     cursor: pointer;
     font-size: 1.5rem;
-    background-color: rgba(117, 117, 248, 0.705);
+    background-color: rgba(5, 255, 26, 0.705);
+    color: rgb(4, 74, 136);
+    transition: tranform 0.2s, background-color 0.5s, color 0.5s;
 }
 
+#run-game:hover {
+  transform: scale(1.5);
+  background-color: rgb(4, 74, 136);
+  color: rgba(5, 255, 26, 0.705);
+}
+
+#info-game{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+#info-r {
+    margin-top: .2rem;
+}

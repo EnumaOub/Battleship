@@ -30,10 +30,11 @@ export const CreateGame = function() {
     // Create a player using the the inputs in the front
     const createPlayer = function(name, active=false) {
         const playerName = document.getElementById(`${name}-name`).value ? document.getElementById(`${name}-name`).value: name;
+        playerName.split(" ").join("")
         const sizeX = document.getElementById('coordX').value;
         const sizeY = document.getElementById('coordY').value;
         const realP = document.getElementById(`${name}-realp`).checked;
-        const player = new Player(playerName, realP, sizeX, sizeY);
+        const player = new Player(playerName.split(" ").join(""), realP, sizeX, sizeY);
         if (active) {
             player.toggleActive();
         }
@@ -48,6 +49,7 @@ export const CreateGame = function() {
             players.player1.setName(players.player1.name + "-1");
             players.player2.setName(players.player2.name + "-2");
         }
+
     };
 
     // Store players information used in game
@@ -124,8 +126,8 @@ export const CreateGame = function() {
         container.classList.add(`grid_p`);
         container.classList.add(`grid_${playerName}`);
         // Create the grid
-        container.style["grid-template-columns"] = `repeat(${cols}, 2rem)`
-        container.style["grid-template-rows"] = `repeat(${rows}, 2rem)`
+        container.style["grid-template-columns"] = `repeat(${cols}, 3rem)`
+        container.style["grid-template-rows"] = `repeat(${rows}, 3rem)`
         // Populate the board
         for (let row=0; row<rows; row++) {
             for (let col=0; col<cols; col++) {
@@ -179,6 +181,7 @@ export const CreateGame = function() {
             generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1", false)
             buttonPlay1.textContent = `Go to ${players.player2.name} Board`
             dialogP1.showModal();
+            dialogP1.classList.toggle('show');
     
             buttonRand1.addEventListener("click", (event) => {
                 randomShip(players.player1);
@@ -193,6 +196,7 @@ export const CreateGame = function() {
                 randomShip(players.player2);
                 generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2", false)
                 dialogP2.showModal();
+                dialogP2.classList.toggle('show');
                 buttonRand2.addEventListener("click", (event) => {
                     randomShip(players.player2);
                     generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2", false)
@@ -211,6 +215,7 @@ export const CreateGame = function() {
             generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1", false)
             buttonPlay1.textContent = `Play Game`
             dialogP1.showModal();
+            dialogP1.classList.toggle('show');
             buttonRand1.addEventListener("click", (event) => {
                 randomShip(players.player1);
                 generateBoard(players.player1.name, players.player1.board.boardT, "board-ship1", false)
@@ -227,6 +232,7 @@ export const CreateGame = function() {
             randomShip(players.player1);
             generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2", false)
             dialogP2.showModal();
+            dialogP2.classList.toggle('show');
             buttonRand2.addEventListener("click", (event) => {
                 randomShip(players.player2);
                 generateBoard(players.player2.name, players.player2.board.boardT, "board-ship2", false)

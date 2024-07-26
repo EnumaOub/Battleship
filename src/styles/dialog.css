@@ -1,9 +1,16 @@
+
 dialog {
-    position: absolute;
-    top: 40%;
-    left: 30%;
+    position: relative;
     width: 40%;
-    background-color: var(--back-shelves);
+    opacity: 0;
+    transform: translate(50%, 50%);
+    transition: opacity 0.3s ease-in;
+    padding: 1rem;
+}
+
+dialog.show {
+
+    opacity: 1;
 }
 
 
