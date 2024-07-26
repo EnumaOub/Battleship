@@ -1,5 +1,6 @@
 
 dialog {
+    background-color: rgba(0, 0, 50, 0.5);
     position: relative;
     width: 40%;
     opacity: 0;
@@ -9,7 +10,6 @@ dialog {
 }
 
 dialog.show {
-
     opacity: 1;
 }
 
@@ -27,9 +27,8 @@ dialog button {
     margin-top: 1rem;
     border-radius: 2rem;
     border: 1px solid black;
-    font-size: 1.2rem;
     padding: 0.5rem;
-    cursor: pointer;
+    align-self: center;
 }
 
 

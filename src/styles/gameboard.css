@@ -5,20 +5,23 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    min-height: 150%;
 }
 
-.grid_p.active {
-    border: 1px solid rgb(51, 255, 0);
+.grid_p.active, .win {
+    transform: scale(1.1);
+    border: 3px solid rgb(51, 255, 0);
 }
 
 .grid div, #board-ship1, #board-ship2 {
     display: grid;
     grid-template-columns: repeat(3, 5rem);
     grid-template-rows: repeat(3, 5rem);
+    color:aliceblue;
 }
 
 .grid div div, #board-ship1 div, #board-ship2 div {
-    border: 1px solid rgba(0, 0, 0, 0.6);
+    border: 1px solid #ffeb3b;
 }
 
 .grid_elem {
@@ -30,20 +33,63 @@
     cursor: pointer;
 }
 
-.grid_elem {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.grid_elem:hover {
-    background-color: rgba(0, 0, 255, 0.1);
+.active .grid_elem:hover {
+    transform: scale(1.1);
+    background-color: #ffeb3b;
 }
 
 .grid_elem.won {
     background-color: rgba(0, 255, 0, 0.4);
 }
 
+.grid .grid_NOT {
+    background-color: rgba(128, 128, 128, 0.336);
+    content: "NOT";
+}
+
+.grid div .grid_elem_NOT, .grid .grid_NOT .grid_elem  {
+    border: 1px solid #ffeb3b59;
+    cursor: not-allowed;
+}
+
+.grid .grid_NOT .grid_elem.miss {
+    background-color: rgba(0, 0, 255, 0.5);
+} 
+
+.grid .grid_NOT .grid_elem.hit {
+    background-color: rgba(255, 0, 0, 0.5);
+} 
+
+.hit {
+    background-color: red;
+    animation: hit-animation 0.5s ease-in-out;
+}
+  
+.miss {
+    background-color: blue;
+    animation: miss-animation 0.5s ease-in-out;
+}
+
+@keyframes hit-animation {
+    0% { 
+        background-color: transparent; 
+    }
+    50% { 
+        background-color: red; 
+    }
+    100% { 
+        background-color: transparent; 
+    }
+  }
+  
+@keyframes miss-animation {
+    0% { 
+        background-color: transparent; 
+    }
+    50% { 
+        background-color: blue; 
+    }
+    100% { 
+        background-color: transparent; 
+    }
+}

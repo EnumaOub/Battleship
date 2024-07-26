@@ -41,7 +41,7 @@ p, button {
 main {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     gap: 2rem;
     margin-top: 1rem;
@@ -51,9 +51,28 @@ main {
 #gen-param {
     overflow: auto;
     width: 40%;
+    margin-left: 1rem;
 }
 
 #game {
     overflow: auto;
-    width: 40%;
+    width: 50%;
+}
+
+button {
+    border-radius: 2rem;
+    border: 1px solid ;
+    box-shadow: 0.05rem 0 0.05rem 0.05rem;
+    width: 20rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    background-color: #ffeb3b;
+    color: rgb(4, 74, 136);
+    transition: tranform 0.2s, background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+  transform: scale(1.5);
+  background-color: rgb(4, 74, 136);
+  color: #ffeb3b;
 }

@@ -123,11 +123,12 @@ export const CreateGame = function() {
         // Reset the board
         container.innerHTML = "";
         // Add class to this element in order to differentiate the different boards created
+        container.className = "";
         container.classList.add(`grid_p`);
         container.classList.add(`grid_${playerName}`);
         // Create the grid
-        container.style["grid-template-columns"] = `repeat(${cols}, 3rem)`
-        container.style["grid-template-rows"] = `repeat(${rows}, 3rem)`
+        container.style["grid-template-columns"] = `repeat(${cols}, 2.5rem)`
+        container.style["grid-template-rows"] = `repeat(${rows}, 2.5rem)`
         // Populate the board
         for (let row=0; row<rows; row++) {
             for (let col=0; col<cols; col++) {
@@ -171,8 +172,8 @@ export const CreateGame = function() {
         const player1Name = document.getElementById("player1-game-name");
         const player2Name = document.getElementById("player2-game-name");
         checkPlayersName();
-        player1Name.textContent = players.player1.name;
-        player2Name.textContent = players.player2.name;
+        player1Name.textContent = `${players.player1.name} - Board`;
+        player2Name.textContent = `${players.player2.name} - Board`;
         if (players.player1.realP && players.player2.realP) {
             const dialogP1 = document.getElementById("player1-ship");
             const buttonRand1 = document.getElementById("rand-ship1");
@@ -251,18 +252,18 @@ export const CreateGame = function() {
 
     // Function Ending the game
     const endGame = function() {
-        const containerP1 = document.getElementById("player1-grid");
-        const containerP2 = document.getElementById("player2-grid");
         const playerWin = players[getActivePlayer()];
+        const playerLoss = players[getNonActivePlayer()];
         
-        document.getElementsByClassName(`grid_${players["player1"].name}`)[0].className = "";
-        document.getElementsByClassName(`grid_${players["player2"].name}`)[0].className = "";
+        document.getElementsByClassName(`grid_${playerLoss.name}`)[0].className = "grid_NOT";
+        document.getElementsByClassName(`grid_${playerWin.name}`)[0].className = "grid_NOT win";
 
         document.getElementById("info-r").textContent = `${playerWin.name} win !!!`
     };
     
 
     return { 
-        getGame
+        getGame,
+        generateBoard
     };
 };
