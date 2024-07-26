@@ -52,10 +52,10 @@ export default class Gameboard {
         let checkShip = true;
         this.shipArr.forEach((ship) => {
             if (ship.position === "HORIZONTAL" && coord[1] === ship.coordInit[1]) {
-                checkShip = !(coord[0] >= ship.coordInit[0] && coord[0] <= ship.coordFin[0]) 
+                checkShip = coord[0] < ship.coordInit[0] || coord[0] > ship.coordFin[0]
             }
             else if (ship.position === "VERTICAL" && coord[0] === ship.coordInit[0]) {
-                checkShip = !(coord[1] >= ship.coordInit[1] && coord[1] <= ship.coordFin[1]) 
+                checkShip = coord[1] < ship.coordInit[1] || coord[1] > ship.coordFin[1]
             }
         })
         return checkShip;
@@ -155,12 +155,12 @@ export default class Gameboard {
     // Function where opponent attack a coordinate of the board
     receiveAttack(coord) {
         if(this.checkCoordinate(coord)) {
-            let touched = null;
+            let touched = [];
             // Check if a ship is touched  
             // if it is the case the index is stored in variable "touched"
             for (let i=0; i<this.shipAlive; i++) {
                 if (this.checkShipAttack(this.shipArr[i], coord)) {
-                    touched = i;
+                    touched.push(i);
                 }
             }
             // Add one attack
@@ -169,16 +169,19 @@ export default class Gameboard {
             this.boardT[coord[0]][coord[1]] = "x";
             // delete move from possible moves array
             this.possibleMove = this.possibleMove.filter(coordd => coordd.toString() !== coord.toString());
-            if (touched !== null) {
-                // If a ship is touched
-                this.boardG[coord[0]][coord[1]] = "o";
-                this.shipArr[touched].hit();
-                if (this.shipArr[touched].sunk) {
-                    // Delete ship if its sunk
-                    this.shipArr.splice(touched, 1);
-                    this.shipAlive--;
+            if (touched.length !== 0) {
+                for (const touch of touched) {
+                    // If a ship is touched
+                    this.boardG[coord[0]][coord[1]] = "o";
+                    this.shipArr[touch].hit();
+                    if (this.shipArr[touch].sunk) {
+                        // Delete ship if its sunk
+                        this.shipArr.splice(touch, 1);
+                        this.shipAlive--;
+                    }
+                    return true;
                 }
-                return true;
+                
             }
             else {
                 this.boardG[coord[0]][coord[1]] = "x";
