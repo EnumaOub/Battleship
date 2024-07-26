@@ -1,10 +1,13 @@
 import Player from "../internal/Player"
 import { ControlGame } from "./ControlGame";
 
+// Function to create and control the game
 export const CreateGame = function() {
 
+    // Creation to control object to attack and get results
     const controller = ControlGame();
 
+    // Generate 3 random ships of length 2 to 5
     const randomShip = function(player, nbShip=3){
         player.board.resetBoard();
         for (let i=0; i<nbShip; i++){
@@ -12,6 +15,7 @@ export const CreateGame = function() {
         }
     }
 
+    // Create a player using the the inputs in the front
     const createPlayer = function(name, active=false) {
         const playerName = document.getElementById(`${name}-name`).value ? document.getElementById(`${name}-name`).value: name;
         const sizeX = document.getElementById('coordX').value;
@@ -101,10 +105,13 @@ export const CreateGame = function() {
             }
         }
         container.onclick = function(event) {
-            if (event.target.parentElement.classList.contains("active")) {
+            let [yCoord, xCoord] = event.target.id.match(/\d+/g);
+            const checkMove = players[getNonActivePlayer()].board.possibleMove.map((elem) => elem.toString()).indexOf([xCoord, yCoord].toString());
+            if (event.target.parentElement.classList.contains("active") && checkMove !== -1) {
                 const resAttack = controller.attackC(event, players[getNonActivePlayer()]);
             
                 checkResAttack(resAttack);
+                event.target.style.cursor = "not-allowed";
             }
         }
     };

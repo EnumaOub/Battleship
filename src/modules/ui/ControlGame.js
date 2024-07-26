@@ -55,6 +55,7 @@ export const ControlGame = function() {
         dealResult(result, nbShip, target, player);
         return result;
     };
+    
 
     return {
         attackC,
